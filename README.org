@@ -1,0 +1,8 @@
+* emacs-dashboard-hackernews
+This is a plugin for the [[https://github.com/rakanalh/emacs-dashboard][Emacs Dashboard]].
+
+* Feature
+Display a topstories of [[https://news.ycombinator.com/][Hacker News]] on Dashboard.
+
+* ScreenShot
+[[./screenshot.png]]
