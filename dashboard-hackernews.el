@@ -4,6 +4,7 @@
 ;; Check Hacker News on Emacs.
 
 ;;; Code:
+
 (require 'request)
 (require 'dashboard)
 (require 'dashboard-widgets)
@@ -26,7 +27,8 @@
           dashboard-hackernews-api-version)
   "Format of Hacker News website item URLs.")
 
-(defun dashboard-hackernews--get-ids (callback)
+(defun dashboard-hackernews-get-ids (callback)
+  "Get hackernews ids, and execute CALLBACK function."
   (request
    dashboard-hackernews-api-top-format
    :parser 'json-read
@@ -34,7 +36,8 @@
              (lambda (&key data &allow-other-keys)
                (funcall callback data)))))
 
-(defun dashboard-hackernews--get-site-item (callback id)
+(defun dashboard-hackernews-get-item (callback id)
+  "Get hackernews article from ID, and execute CALLBACK function."
   (request
    (format "%s/%s.json" dashboard-hackernews-site-item-format id)
    :parser 'json-read
@@ -43,7 +46,7 @@
                (funcall callback data)))))
 
 (defun dashboard-hackernews-insert-list (list-display-name list)
-  "Render hackernews-list title and items of LIST."
+  "Render LIST-DISPLAY-NAME and items of LIST."
   (when (car list)
     (dashboard-insert-heading list-display-name)
     (mapc (lambda (el)
@@ -60,15 +63,13 @@
           list )))
 
 (defun dashboard-hackernews-insert (list-size)
-  "Add the list of LIST-SIZE items from recently edited files."
-  (dashboard-hackernews--get-ids
+  "Add the list of LIST-SIZE items from hackernews."
+  (dashboard-hackernews-get-ids
    (lambda (ids)
      (dotimes (i list-size)
-       (dashboard-hackernews--get-site-item
-        (lambda (item) (push item dashboard-hackernews-items)) (elt ids i)
-        ))))
+       (dashboard-hackernews-get-item
+        (lambda (item) (push item dashboard-hackernews-items)) (elt ids i)))))
   (when (dashboard-hackernews-insert-list "Hackernews:"
                                           (dashboard-subseq dashboard-hackernews-items 0 list-size))))
-
 
 ;;; dashboard-hackernews.el ends here
