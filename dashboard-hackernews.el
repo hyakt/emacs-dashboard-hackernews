@@ -59,7 +59,7 @@
                            :button-prefix ""
                            :button-suffix ""
                            :format "%[%t%]"
-                           (format "[%s] %s" (cdr (assoc 'score el)) (cdr (assoc 'title el)))))
+                           (format "[%3d] %s" (cdr (assoc 'score el)) (cdr (assoc 'title el)))))
           list )))
 
 (defun dashboard-hackernews-insert (list-size)
