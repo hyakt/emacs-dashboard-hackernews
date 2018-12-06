@@ -72,4 +72,6 @@
   (when (dashboard-hackernews-insert-list "Hackernews:"
                                           (dashboard-subseq dashboard-hackernews-items 0 list-size))))
 
+(provide 'dashboard-hackernews)
+
 ;;; dashboard-hackernews.el ends here
