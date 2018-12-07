@@ -52,6 +52,7 @@
   "Get hackernews ids, and execute CALLBACK function."
   (request
    dashboard-hackernews-api-top-format
+   :sync t
    :parser 'json-read
    :success (cl-function
              (lambda (&key data &allow-other-keys)
