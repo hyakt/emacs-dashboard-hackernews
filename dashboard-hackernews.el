@@ -1,11 +1,11 @@
-;;; dashboard-hackernews.el --- Hacker News Client for dashboard; -*- lexical-binding: t -*-;
+;;; dashboard-hackernews.el --- Display Hacker News on Emacs Dashboard; -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2018 by Hayato KAJIYAMA
 
 ;; Author:  Hayato KAJIYAMA <kaji1216@gmail.com>
 ;; URL: https://github.com/hyakt/emacs-dashboard-hackernews
 ;; Version: 0.0.1
-;; Package-Requires: ((dashboard "1.2.5") (request "0.3.0"))
+;; Package-Requires: ((emacs "24") (dashboard "1.2.5") (request "0.3.0"))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
