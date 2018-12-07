@@ -6,3 +6,16 @@ Display a topstories of [[https://news.ycombinator.com/][Hacker News]] on Dashbo
 
 * ScreenShot
 [[./screenshot.png]]
+
+* Usage
+
+#+BEGIN_SRC sh
+M-x package-install RET dashboard-hackernews
+#+END_SRC
+
+#+BEGIN_SRC elisp
+(require 'dashboard-hackernews)
+(setq dashboard-items '((hackernews . 10)))
+#+END_SRC
+
+
