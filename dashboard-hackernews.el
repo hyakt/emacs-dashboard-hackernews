@@ -1,4 +1,4 @@
-;;; dashboard-hackernews.el --- Display Hacker News on Emacs Dashboard; -*- lexical-binding: t; -*-
+;;; dashboard-hackernews.el --- Display Hacker News on dashboard -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2018 by Hayato KAJIYAMA
 
@@ -22,7 +22,7 @@
 
 ;;; Commentary:
 
-;; Display Hacker News on Emacs Dashboard.
+;; Display Hacker News on dashboard.
 
 ;;; Code:
 
@@ -58,7 +58,7 @@
              (lambda (&key data &allow-other-keys)
                (funcall callback data)))))
 
-(defun dashboard-hackernews-get-item (callback id)
+(defun dashboard-hackernews-get-item (id callback)
   "Get hackernews article from ID, and execute CALLBACK function."
   (request
    (format "%s/%s.json" dashboard-hackernews-site-item-format id)
@@ -90,7 +90,7 @@
    (lambda (ids)
      (dotimes (i list-size)
        (dashboard-hackernews-get-item
-        (lambda (item) (push item dashboard-hackernews-items)) (elt ids i)))))
+        (elt ids i) (lambda (item) (push item dashboard-hackernews-items))))))
   (dashboard-hackernews-insert-list "Hackernews:"
                                     (dashboard-subseq dashboard-hackernews-items 0 list-size)))
 
