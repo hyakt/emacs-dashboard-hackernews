@@ -30,7 +30,7 @@
 (require 'dashboard)
 (require 'dashboard-widgets)
 
-(add-to-list 'dashboard-item-generators  '(hackernews . dashboard-hackernews-insert))
+(add-to-list 'dashboard-item-generators '(hackernews . dashboard-hackernews-insert))
 (add-to-list 'dashboard-items '(hackernews) t)
 
 (defvar dashboard-hackernews-items ())
@@ -82,7 +82,7 @@
                            :button-suffix ""
                            :format "%[%t%]"
                            (format "[%3d] %s" (cdr (assoc 'score el)) (cdr (assoc 'title el)))))
-          list )))
+          list)))
 
 (defun dashboard-hackernews-insert (list-size)
   "Add the list of LIST-SIZE items from hackernews."
@@ -91,8 +91,8 @@
      (dotimes (i list-size)
        (dashboard-hackernews-get-item
         (lambda (item) (push item dashboard-hackernews-items)) (elt ids i)))))
-  (when (dashboard-hackernews-insert-list "Hackernews:"
-                                          (dashboard-subseq dashboard-hackernews-items 0 list-size))))
+  (dashboard-hackernews-insert-list "Hackernews:"
+                                    (dashboard-subseq dashboard-hackernews-items 0 list-size)))
 
 (provide 'dashboard-hackernews)
 ;;; dashboard-hackernews.el ends here
