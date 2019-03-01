@@ -100,11 +100,14 @@
          (sleep-for 0.05))
        (setq dashboard-hackernews-items
              (seq-sort-by (lambda (el) (cdr (assoc 'id el))) '> dashboard-hackernews-items))
-       (dashboard-hackernews-insert-list
-        "Hackernews:"
-        (dashboard-subseq
-         dashboard-hackernews-items
-         0 list-size))))))
+       (dashboard-insert-section
+        "Hacker News:"
+        dashboard-hackernews-items
+        list-size
+        "n"
+        `(lambda (&rest ignore)
+           (browse-url ,(cdr (assoc 'url el))))
+        (format "[%3d] %s" (cdr (assoc 'score el)) (decode-coding-string (cdr (assoc 'title el)) 'utf-8)))))))
 
 (provide 'dashboard-hackernews)
 ;;; dashboard-hackernews.el ends here
