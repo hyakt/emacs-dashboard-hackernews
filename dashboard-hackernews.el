@@ -86,25 +86,25 @@
 
 (defun dashboard-hackernews-insert (list-size)
   "Add the list of LIST-SIZE items from hackernews."
-	(setq dashboard-hackernews-items ())
+  (setq dashboard-hackernews-items ())
   (dashboard-hackernews-get-ids
    (lambda (ids)
      (let ((inserted-count 0))
-			 (dotimes (i list-size)
-				 (progn
-					 (dashboard-hackernews-get-item
-						(elt ids i) (lambda (item)
-													(push item dashboard-hackernews-items)
-													(setq inserted-count (1+ inserted-count))))))
-			 (while (< inserted-count list-size)
-				 (sleep-for 0.05))
-			 (setq dashboard-hackernews-items
-						 (seq-sort-by (lambda (el) (cdr (assoc 'id el))) '> dashboard-hackernews-items))
-			 (dashboard-hackernews-insert-list
-				"Hackernews:"
-				(dashboard-subseq
-				 dashboard-hackernews-items
-				 0 list-size))))))
+       (dotimes (i list-size)
+         (progn
+           (dashboard-hackernews-get-item
+            (elt ids i) (lambda (item)
+                          (push item dashboard-hackernews-items)
+                          (setq inserted-count (1+ inserted-count))))))
+       (while (< inserted-count list-size)
+         (sleep-for 0.05))
+       (setq dashboard-hackernews-items
+             (seq-sort-by (lambda (el) (cdr (assoc 'id el))) '> dashboard-hackernews-items))
+       (dashboard-hackernews-insert-list
+        "Hackernews:"
+        (dashboard-subseq
+         dashboard-hackernews-items
+         0 list-size))))))
 
 (provide 'dashboard-hackernews)
 ;;; dashboard-hackernews.el ends here
