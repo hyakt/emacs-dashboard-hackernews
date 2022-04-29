@@ -92,7 +92,7 @@
        (dashboard-hackernews-get-item
         (elt ids i) (lambda (item) (push item dashboard-hackernews-items))))))
   (dashboard-hackernews-insert-list "Hackernews:"
-                                    (dashboard-subseq dashboard-hackernews-items 0 list-size)))
+                                    (dashboard-subseq dashboard-hackernews-items list-size)))
 
 (provide 'dashboard-hackernews)
 ;;; dashboard-hackernews.el ends here
