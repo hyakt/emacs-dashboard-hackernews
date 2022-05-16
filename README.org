@@ -18,4 +18,112 @@ M-x package-install RET dashboard-hackernews
 (setq dashboard-items '((hackernews . 10)))
 #+END_SRC
 
+* ~emacs-dashboard-hackernews~
+This package is a plugin for the
+[[https://github.com/emacs-dashboard/emacs-dashboard][Emacs Dashboard]] which
+inserts a section containing  a configurable number of top stories from
+[[https://news.ycombinator.com/][Hacker News]].
 
+* ScreenShot
+[[./screenshot.png]]
+
+* Installation
+
+** Manual Installation
+
+#+begin_src sh
+M-x package-install RET dashboard-hackernews
+#+end_src
+
+** Installation with [[https://github.com/jwiegley/use-package][use-package]]
+
+#+begin_src emacs-lisp
+(use-package dashboard-hackernews)
+#+end_src
+
+Since this version of the package is available on MELPA there's no need to explicitly set the
+load-path, but if you're interested in forking the repository and trying out your own local
+modifications you can do so like this:
+
+#+begin_src emacs-lisp
+(use-package dashboard-hackernews
+  :load-path "path/to/files/emacs-dashboard-hackernews"
+  :config
+  (require 'json))
+#+end_src
+
+** Installation with [[https://github.com/raxod502/straight.el][straight.el]]
+
+Installation with ~straight.el~ is a breeze.
+
+#+begin_src emacs-lisp
+(straight-use-package 'dashboard-hackernews)
+#+end_src
+
+If you'd like to pull directly from GitHub or reference a fork of this repository, simply define a custom recipe.
+
+#+begin_src emacs-lisp
+(straight-use-package
+ '(dashboard-hackernews
+   :type git
+   :host github
+   :repo "hyakt/emacs-dashboard-hackernews"))
+#+end_src
+
+When using both ~straight.el~ and ~use-package~, the configuration looks like this:
+
+#+begin_src emacs-lisp
+(use-package dashboard-hackernews
+  :straight t)
+#+end_src
+
+or...
+
+#+begin_src emacs-lisp
+(use-package dashboard-hackernews
+  :straight (:type git :host github :repo "hyakt/emacs-dashboard-hackernews")
+  :config
+  (require 'json))
+#+end_src
+
+* Usage
+
+This package provides a new section for the dashboard, simply include it in the ~dashboard-items~
+list with an integer specifying how many links you'd like to show.
+
+Below is a minimal, bare-bones, example. Assuming ~emacs-dashboard~ has already been loaded, the
+following would show a single section containing a Hacker News feed of 10 stories.
+
+#+begin_src emacs-lisp
+(require 'dashboard-hackernews)
+(setq dashboard-items '((hackernews . 10)))
+#+end_src
+
+For those who require a little more context, the following is a more complicated example showing
+configuration with ~use-package~ and ~straight.el~.
+
+#+begin_src emacs-lisp
+(use-package dashboard-hackernews
+  :straight (:type git
+             :host github
+             :repo "hyakt/emacs-dashboard-hackernews"
+             :branch "master")
+  :config
+  (require 'json))
+
+(use-package dashboard
+  :after dashboard-hackernews
+  :config
+  (setq dashboard-banner-logo-title      "My Dashboard"    ; set the title
+        dashboard-startup-banner         'logo                   ; show the logo in the banner area
+        dashboard-set-init-info          t                       ; show package load / init time
+        dashboard-set-heading-icons      t
+        dashboard-set-file-icons         t
+        dashboard-items                  '((recents . 5)         ; this is where the magic happens
+                                           (bookmarks . 5)
+                                           (hackernews . 5)
+                                           (agenda . 5))
+        dashboard-center-content         t                       ; center the dashboard
+        dashboard-week-agenda            t)                      ; set the agenda
+  (dashboard-setup-startup-hook))
+#+end_src
