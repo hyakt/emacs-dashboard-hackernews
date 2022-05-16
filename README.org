@@ -1,3 +1,5 @@
+[[https://melpa.org/#/dashboard-hackernews][file:https://melpa.org/packages/dashboard-hackernews-badge.svg]]
+
 * ~emacs-dashboard-hackernews~
 This package is a plugin for the
 [[https://github.com/emacs-dashboard/emacs-dashboard][Emacs Dashboard]] which
