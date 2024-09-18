@@ -77,6 +77,7 @@
                            :action `(lambda (&rest ignore)
                                       (browse-url ,(cdr (assoc 'url el))))
                            :mouse-face 'highlight
+                           :button-face 'dashboard-items-face
                            :follow-link "\C-m"
                            :button-prefix ""
                            :button-suffix ""
