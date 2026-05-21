@@ -85,27 +85,29 @@ For those who require a little more context, the following is a more complicated
 configuration with ~use-package~ and ~straight.el~.
 
 #+begin_src emacs-lisp
-(use-package dashboard-hackernews
-  :straight (:type git
-             :host github
-             :repo "hyakt/emacs-dashboard-hackernews"
-             :branch "master")
-  :config
-  (require 'json))
+  (use-package dashboard-hackernews
+    :straight (:type git
+               :host github
+               :repo "hyakt/emacs-dashboard-hackernews"
+               :branch "master")
+    :config
+    (require 'json))
 
-(use-package dashboard
-  :after dashboard-hackernews
-  :config
-  (setq dashboard-banner-logo-title      "My Dashboard"    ; set the title
-        dashboard-startup-banner         'logo                   ; show the logo in the banner area
-        dashboard-set-init-info          t                       ; show package load / init time
-        dashboard-set-heading-icons      t
-        dashboard-set-file-icons         t
-        dashboard-items                  '((recents . 5)         ; this is where the magic happens
-                                           (bookmarks . 5)
-                                           (hackernews . 5)
-                                           (agenda . 5))
-        dashboard-center-content         t                       ; center the dashboard
-        dashboard-week-agenda            t)                      ; set the agenda
-  (dashboard-setup-startup-hook))
+  (use-package dashboard
+    :after dashboard-hackernews
+    :config
+    (setq dashboard-banner-logo-title       "My Dashboard"            ; set the title
+          dashboard-startup-banner          'logo                     ; show the logo in the banner area
+          dashboard-set-init-info           t                         ; show package load / init time
+          dashboard-set-heading-icons       t
+          dashboard-set-file-icons          t
+          dashboard-items                   '((recents . 5)           ; this is where the magic happens
+                                              (bookmarks . 5)
+                                              (hackernews . 5)
+                                              (agenda . 5))
+          dashboard-center-content          t                         ; center the dashboard
+          dashboard-week-agenda             t)                        ; set the agenda
+    (add-to-list 'dashboard-item-shortcuts  '(hackernews . "n"))      ; set a shortcut (optional)
+    (add-to-list 'dashboard-heading-icons   '(hackernews . "pulse"))  ; set an icon (optional)
+    (dashboard-setup-startup-hook))
 #+end_src

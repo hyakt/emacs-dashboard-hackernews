@@ -67,24 +67,6 @@
              (lambda (&key data &allow-other-keys)
                (funcall callback data)))))
 
-(defun dashboard-hackernews-insert-list (list-display-name list)
-  "Render LIST-DISPLAY-NAME and items of LIST."
-  (when (car list)
-    (dashboard-insert-heading list-display-name)
-    (mapc (lambda (el)
-            (insert "\n    ")
-            (widget-create 'push-button
-                           :action `(lambda (&rest ignore)
-                                      (browse-url ,(cdr (assoc 'url el))))
-                           :mouse-face 'highlight
-                           :button-face 'dashboard-items-face
-                           :follow-link "\C-m"
-                           :button-prefix ""
-                           :button-suffix ""
-                           :format "%[%t%]"
-                           (format "[%3d] %s" (cdr (assoc 'score el)) (decode-coding-string (cdr (assoc 'title el)) 'utf-8))))
-          list)))
-
 (defun dashboard-hackernews-insert (list-size)
   "Add the list of LIST-SIZE items from hackernews."
   (dashboard-hackernews-get-ids
@@ -92,8 +74,21 @@
      (dotimes (i list-size)
        (dashboard-hackernews-get-item
         (elt ids i) (lambda (item) (push item dashboard-hackernews-items))))))
-  (dashboard-hackernews-insert-list "Hackernews:"
-                                    (dashboard-subseq dashboard-hackernews-items list-size)))
+  (dashboard-insert-section
+   "Hackernews:"
+   (mapcar (lambda (story)
+             (propertize (format "[%3d] %s"
+                                 (alist-get 'score story)
+                                 (decode-coding-string (alist-get 'title story) 'utf-8))
+                         'dashboard-url (alist-get 'url story)))
+           dashboard-hackernews-items)
+   list-size
+   'hackernews
+   (dashboard-get-shortcut 'hackernews)
+   `(lambda (&rest _)
+      (let ((url (get-text-property 0 'dashboard-url ,el)))
+        (when url (browse-url url))))
+   el))
 
 (provide 'dashboard-hackernews)
 ;;; dashboard-hackernews.el ends here
